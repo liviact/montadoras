@@ -1,0 +1,351 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Veiculos - Teste de Software
+meta:
+  id: wrk_a4ef241e5a65430ab2e60d3686ed9684
+  created: 1782404186028
+  modified: 1782404186028
+  description: ""
+collection:
+  - name: Clientes
+    meta:
+      id: fld_23b3d312e2c847108d1fbda82c11ca3a
+      created: 1782404206468
+      modified: 1782404809078
+      sortKey: -1782404225418
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/clientes"
+        name: Create
+        meta:
+          id: req_defaeb8e20054382b53923434910073e
+          created: 1782404765548
+          modified: 1782405147427
+          isPrivate: false
+          description: ""
+          sortKey: -1782404767916
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Florisvaldo Junior",
+            	"cpf": "1234567800",
+            	"cep": "13185880",
+            	"numero": 123,
+            	"complemento": "Apenas um teste!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/clientes"
+        name: List
+        meta:
+          id: req_34ce49f1869d479da58205ec881eb5d9
+          created: 1782404827540
+          modified: 1782404830274
+          isPrivate: false
+          description: ""
+          sortKey: -1782404764023.5
+        method: GET
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Ferrari",
+            	"pais": "Itália"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/clientes/66"
+        name: Delete
+        meta:
+          id: req_98c301be7a274397b0fe46228da20324
+          created: 1782405165932
+          modified: 1782738793762
+          isPrivate: false
+          description: ""
+          sortKey: -1782404762077.25
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/clientes?id=66"
+        name: Update
+        meta:
+          id: req_e1b2585faa964f8b8ba4aa67f09f7244
+          created: 1782405189948
+          modified: 1782738777794
+          isPrivate: false
+          description: ""
+          sortKey: -1782404765969.75
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Florisvaldo Antonio",
+            	"cpf": "1234560800",
+            	"cep": "13185881",
+            	"numero": 1234,
+            	"complemento": "Apenas um teste!!!"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Veiculos
+    meta:
+      id: fld_ee083210fd0147119907397c5db69d4c
+      created: 1782404217203
+      modified: 1782404217203
+      sortKey: -1782404217203
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/veiculos"
+        name: Create
+        meta:
+          id: req_558e7fec8b994cd9898f0020098ab104
+          created: 1782404757252
+          modified: 1782738822471
+          isPrivate: false
+          description: ""
+          sortKey: -1782404760131
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idMontadora": 296,
+            	"idCliente": 67,
+            	"modelo": "Palio",
+            	"placa": "eag-2356",
+            	"ano": 2010,
+            	"cor": "Preto",
+            	"valor": 20000.00
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/veiculos"
+        name: List
+        meta:
+          id: req_1079ecc705724b6f8dab0af316270a6e
+          created: 1782405423652
+          modified: 1782405429131
+          isPrivate: false
+          description: ""
+          sortKey: -1782404498882.5
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/veiculos/8"
+        name: Delete
+        meta:
+          id: req_92d8355a1ff44151978aaf3dfcfc396e
+          created: 1782405454927
+          modified: 1782738869343
+          isPrivate: false
+          description: ""
+          sortKey: -1782404368258.25
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/veiculos?id=8"
+        name: Update
+        meta:
+          id: req_014e0ae0f5cd4c69b0bf2ba7867fe9a6
+          created: 1782405487068
+          modified: 1782738857802
+          isPrivate: false
+          description: ""
+          sortKey: -1782404629506.75
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"idMontadora": 296,
+            	"idCliente": 67,
+            	"modelo": "Palio GT",
+            	"placa": "abc-2356",
+            	"ano": 2009,
+            	"cor": "Prata",
+            	"valor": 25000.00
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Montadoras
+    meta:
+      id: fld_c7ae699bbca94a809441bffc207c6e22
+      created: 1782404233633
+      modified: 1782404233633
+      sortKey: -1782404233633
+      description: ""
+    children:
+      - url: "{{server}}:{{port}}/montadoras"
+        name: Create
+        meta:
+          id: req_2b6255aefb7c424e8e2531e6248a20e9
+          created: 1782404237634
+          modified: 1782412977968
+          isPrivate: false
+          description: ""
+          sortKey: -1782404237634
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Ferrari",
+            	"pais": "Itália"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/montadoras"
+        name: List
+        meta:
+          id: req_f3922487b1ef45549ec40c888506278e
+          created: 1782404495976
+          modified: 1782404503738
+          isPrivate: false
+          description: ""
+          sortKey: -1781801876857
+        method: GET
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/montadoras/295"
+        name: Delete
+        meta:
+          id: req_1859edf05a914d8c9cbe17b40ac29cdd
+          created: 1782404662364
+          modified: 1782738736556
+          isPrivate: false
+          description: ""
+          sortKey: -1781500696468.5
+        method: DELETE
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{server}}:{{port}}/montadoras?id=295"
+        name: Update
+        meta:
+          id: req_1ed903197e2b469bb1a1f7784be1ab78
+          created: 1782404683339
+          modified: 1782738726794
+          isPrivate: false
+          description: ""
+          sortKey: -1781350106274.25
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nome": "Ferrari SA",
+            	"pais": "Itália"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_0b421a5944bbd62bca719fafd126b81ee8b591a6
+    created: 1782404186045
+    modified: 1782404186045
+environments:
+  name: Base Environment
+  meta:
+    id: env_0b421a5944bbd62bca719fafd126b81ee8b591a6
+    created: 1782404186043
+    modified: 1782404300206
+    isPrivate: false
+  data:
+    server: localhost
+    port: 8185
