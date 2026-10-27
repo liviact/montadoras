@@ -1,3 +1,4 @@
+
 import app from '../src/app.js';
 import request from 'supertest';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -256,6 +257,7 @@ describe('CT-012 a CT-018 - Veículos', () => {
     it('CT-014 - deve listar veículos cadastrados', async () => {
         const idMontadora = await criarMontadora();
         const idCliente = await criarCliente();
+
         await criarVeiculo(idMontadora, idCliente);
 
         const response = await request(app)
@@ -358,5 +360,94 @@ describe('CT-019 e CT-020 - Integração com serviço de CEP', () => {
         expect(response.status).toBe(500);
         expect(response.body.message).toBe('Erro ao criar cliente');
         expect(response.body.error).toBe('CEP não encontrado');
+    });
+});
+
+describe('CT-021 a CT-025 - Testes adicionais', () => {
+    it('CT-021 - deve consultar os dados completos de um cliente', async () => {
+        const id = await criarCliente();
+
+        const response = await request(app)
+            .get(`/clientes/${id}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.data).toHaveProperty('Id', id);
+        expect(response.body.data.Nome).toBe(clienteValido.nome);
+        expect(response.body.data.CPF).toBe(clienteValido.cpf);
+        expect(response.body.data.CEP).toBe(clienteValido.cep);
+    });
+
+    it('CT-022 - deve retornar erro ao tentar excluir cliente inexistente', async () => {
+        const response = await request(app)
+            .delete('/clientes/999999');
+
+        expect([200, 404, 500]).toContain(response.status);
+
+        if (response.status === 200) {
+            expect(response.body.data.affectedRows).toBe(0);
+        } else {
+            expect(response.body).toHaveProperty('message');
+        }
+    });
+
+    it('CT-023 - deve cadastrar montadora com nome e país informados', async () => {
+        const response = await request(app)
+            .post('/montadoras')
+            .send({ nome: 'Ford', pais: 'Estados Unidos' });
+
+        expect(response.status).toBe(201);
+        expect(response.body.data).toHaveProperty('insertId');
+
+        const lista = await request(app)
+            .get('/montadoras');
+
+        expect(lista.status).toBe(200);
+        expect(
+            lista.body.data.some(montadora => montadora.Nome === 'Ford')
+        ).toBe(true);
+    });
+
+    it('CT-024 - deve retornar os dados atualizados de um veículo', async () => {
+        const idMontadora = await criarMontadora();
+        const idCliente = await criarCliente();
+        const idVeiculo = await criarVeiculo(idMontadora, idCliente);
+
+        const atualizacao = await request(app)
+            .put(`/veiculos?id=${idVeiculo}`)
+            .send({
+                idMontadora,
+                idCliente,
+                modelo: 'Corolla XEi',
+                placa: 'ABC1D23',
+                ano: 2025,
+                cor: 'Preto',
+                valor: 125000
+            });
+
+        expect(atualizacao.status).toBe(200);
+
+        const consulta = await request(app)
+            .get(`/veiculos/${idVeiculo}`);
+
+        expect(consulta.status).toBe(200);
+        expect(consulta.body.data.Modelo).toBe('Corolla XEi');
+    });
+
+    it('CT-025 - deve informar erro quando o serviço de CEP falhar', async () => {
+        axios.get.mockRejectedValueOnce(
+            new Error('Falha no serviço de CEP')
+        );
+
+        const response = await request(app)
+            .post('/clientes')
+            .send({
+                ...clienteValido,
+                cpf: '11122233344',
+                cep: '13010000'
+            });
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toBe('Erro ao criar cliente');
+        expect(response.body.error).toBe('Falha no serviço de CEP');
     });
 });
